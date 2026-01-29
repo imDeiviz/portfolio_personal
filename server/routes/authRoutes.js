@@ -75,7 +75,6 @@ router.post('/login', async (req, res) => {
     // Buscar usuario con contraseña
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
-      console.log(`[AUTH] Login failed: User not found for email ${email}`); // DEBUG LOG
       return res.status(401).json({
         success: false,
         message: 'Credenciales inválidas (Usuario no encontrado)'
@@ -85,7 +84,6 @@ router.post('/login', async (req, res) => {
     // Verificar contraseña
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      console.log(`[AUTH] Login failed: Password mismatch for user ${email}`); // DEBUG LOG
       return res.status(401).json({
         success: false,
         message: 'Credenciales inválidas (Contraseña incorrecta)'

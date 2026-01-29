@@ -63,7 +63,6 @@ app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/settings', require('./routes/settingsRoutes'));
 app.use('/api/experience', require('./routes/experienceRoutes'));
 app.use('/api/certifications', require('./routes/certificationsRoutes'));
-app.use('/api/debug', require('./routes/debugRoutes')); // TEMPORAL
 
 // Ruta de health check
 app.get('/api/health', (req, res) => {
