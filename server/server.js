@@ -42,26 +42,31 @@ app.use('/api/certifications', require('./routes/certificationsRoutes'));
 
 // Ruta de health check
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+  res.json({
+    status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime()
   });
 });
 
-// ==================== SERVE STATIC IN PRODUCTION ====================
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/dist')));
+// ==================== SERVE STATIC ASSETS ====================
+const fs = require('fs');
+const clientBuildPath = path.join(__dirname, '../client/dist');
+
+if (fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath));
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+    res.sendFile(path.resolve(clientBuildPath, 'index.html'));
   });
+} else if (process.env.NODE_ENV === 'production') {
+  console.error('❌ Error: No se encontró el build del cliente en', clientBuildPath);
 }
 
 // ==================== ERROR HANDLER ====================
 app.use((err, req, res, next) => {
   console.error('❌ Error:', err.stack);
-  res.status(err.status || 500).json({ 
-    success: false, 
+  res.status(err.status || 500).json({
+    success: false,
     message: err.message || 'Error del servidor',
     ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
   });
