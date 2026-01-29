@@ -33,7 +33,7 @@ This platform is more than just a portfolio; it's a **custom-built Headless CMS 
 
 ## 🔥 Key Features
 
-- **🛡️ Secure Admin Dashboard**: Authenticated control panel for real-time CRUD operations.
+- **🛡️ Secure & Responsive Admin Dashboard**: Authenticated control panel with a mobile-first interface for real-time CRUD operations.
 - **⚡ Performance First**: Zero-clutter codebase resulting in near-instant LCP (Largest Contentful Paint).
 - **🎨 Responsive UI**: Mobile-first approach ensuring seamless experience across all viewports.
 - **📩 Lead Management**: Integrated contact system with backend validation and persistence.

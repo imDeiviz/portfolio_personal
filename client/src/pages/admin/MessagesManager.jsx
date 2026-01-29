@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { 
+import {
   FaEnvelope, FaEnvelopeOpen, FaTrash, FaArchive, FaInbox,
   FaReply, FaTimes, FaCheck, FaFilter
 } from 'react-icons/fa'
@@ -39,7 +39,7 @@ const MessagesManager = () => {
 
   const openMessage = async (message) => {
     setSelectedMessage(message)
-    
+
     if (!message.isRead) {
       try {
         await messagesAPI.markRead(message._id)
@@ -82,7 +82,7 @@ const MessagesManager = () => {
     const d = new Date(date)
     const now = new Date()
     const diff = now - d
-    
+
     // Less than 24 hours
     if (diff < 86400000) {
       return d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })
@@ -123,17 +123,15 @@ const MessagesManager = () => {
       <div className="flex gap-2">
         <button
           onClick={() => setFilter('all')}
-          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-            filter === 'all' ? 'bg-primary-500/20 text-primary-400' : 'text-dark-400 hover:bg-dark-800'
-          }`}
+          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${filter === 'all' ? 'bg-primary-500/20 text-primary-400' : 'text-dark-400 hover:bg-dark-800'
+            }`}
         >
           <FaInbox /> Bandeja de entrada
         </button>
         <button
           onClick={() => setFilter('unread')}
-          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-            filter === 'unread' ? 'bg-primary-500/20 text-primary-400' : 'text-dark-400 hover:bg-dark-800'
-          }`}
+          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${filter === 'unread' ? 'bg-primary-500/20 text-primary-400' : 'text-dark-400 hover:bg-dark-800'
+            }`}
         >
           <FaEnvelope /> Sin leer
           {stats.unread > 0 && (
@@ -144,29 +142,28 @@ const MessagesManager = () => {
         </button>
         <button
           onClick={() => setFilter('archived')}
-          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-            filter === 'archived' ? 'bg-primary-500/20 text-primary-400' : 'text-dark-400 hover:bg-dark-800'
-          }`}
+          className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${filter === 'archived' ? 'bg-primary-500/20 text-primary-400' : 'text-dark-400 hover:bg-dark-800'
+            }`}
         >
           <FaArchive /> Archivados
         </button>
       </div>
 
       {/* Messages Layout */}
-      <div className="grid lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 h-[calc(100vh-250px)] lg:h-auto">
         {/* Messages List */}
-        <div className="lg:col-span-2 bg-dark-800/50 rounded-2xl border border-dark-700 overflow-hidden">
-          <div className="divide-y divide-dark-700 max-h-[600px] overflow-y-auto">
+        <div className={`lg:col-span-2 bg-dark-800/50 rounded-2xl border border-dark-700 overflow-hidden flex flex-col
+          ${selectedMessage ? 'hidden lg:flex' : 'flex'}`}>
+          <div className="divide-y divide-dark-700 flex-1 overflow-y-auto">
             {messages.length > 0 ? (
               messages.map((message) => (
                 <div
                   key={message._id}
                   onClick={() => openMessage(message)}
-                  className={`p-4 cursor-pointer transition-colors ${
-                    selectedMessage?._id === message._id 
-                      ? 'bg-primary-500/10 border-l-2 border-primary-500' 
+                  className={`p-4 cursor-pointer transition-colors ${selectedMessage?._id === message._id
+                      ? 'bg-primary-500/10 border-l-2 border-primary-500'
                       : 'hover:bg-dark-700/30'
-                  } ${!message.isRead ? 'bg-dark-700/20' : ''}`}
+                    } ${!message.isRead ? 'bg-dark-700/20' : ''}`}
                 >
                   <div className="flex items-start gap-3">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold flex-shrink-0
@@ -205,7 +202,8 @@ const MessagesManager = () => {
         </div>
 
         {/* Message Detail */}
-        <div className="lg:col-span-3 bg-dark-800/50 rounded-2xl border border-dark-700 overflow-hidden">
+        <div className={`lg:col-span-3 bg-dark-800/50 rounded-2xl border border-dark-700 overflow-hidden flex flex-col
+          ${!selectedMessage ? 'hidden lg:flex' : 'flex'}`}>
           {selectedMessage ? (
             <div className="h-full flex flex-col">
               {/* Header */}

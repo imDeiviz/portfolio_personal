@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { 
+import {
   FaSave, FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt,
   FaGithub, FaLinkedin, FaTwitter, FaInstagram, FaGlobe,
   FaCamera, FaLock
@@ -41,11 +41,11 @@ const ProfileManager = () => {
     if (file) {
       setAvatarFile(file)
       setAvatarPreview(URL.createObjectURL(file))
-      
+
       // Subir inmediatamente
       const formData = new FormData()
       formData.append('avatar', file)
-      
+
       try {
         const response = await profileAPI.uploadAvatar(formData)
         setProfile({ ...profile, avatar: response.data.data.avatar })
@@ -72,7 +72,7 @@ const ProfileManager = () => {
 
   const handlePasswordChange = async (e) => {
     e.preventDefault()
-    
+
     if (passwordData.newPassword !== passwordData.confirmPassword) {
       toast.error('Las contraseñas no coinciden')
       return
@@ -152,20 +152,21 @@ const ProfileManager = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-dark-700 pb-2">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors ${
-              activeTab === tab.id 
-                ? 'bg-primary-500/20 text-primary-400' 
-                : 'text-dark-400 hover:bg-dark-800'
-            }`}
-          >
-            <tab.icon /> {tab.label}
-          </button>
-        ))}
+      <div className="flex gap-2 border-b border-dark-700 pb-2 overflow-x-auto scrollbar-hide">
+        <div className="flex min-w-max gap-2">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 rounded-lg flex items-center gap-2 transition-colors whitespace-nowrap ${activeTab === tab.id
+                  ? 'bg-primary-500/20 text-primary-400'
+                  : 'text-dark-400 hover:bg-dark-800'
+                }`}
+            >
+              <tab.icon /> {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Tab Content */}
@@ -266,8 +267,8 @@ const ProfileManager = () => {
                 <input
                   type="url"
                   value={profile?.social?.github || ''}
-                  onChange={(e) => setProfile({ 
-                    ...profile, 
+                  onChange={(e) => setProfile({
+                    ...profile,
                     social: { ...profile.social, github: e.target.value }
                   })}
                   className="input"
@@ -281,8 +282,8 @@ const ProfileManager = () => {
                 <input
                   type="url"
                   value={profile?.social?.linkedin || ''}
-                  onChange={(e) => setProfile({ 
-                    ...profile, 
+                  onChange={(e) => setProfile({
+                    ...profile,
                     social: { ...profile.social, linkedin: e.target.value }
                   })}
                   className="input"
@@ -296,8 +297,8 @@ const ProfileManager = () => {
                 <input
                   type="url"
                   value={profile?.social?.twitter || ''}
-                  onChange={(e) => setProfile({ 
-                    ...profile, 
+                  onChange={(e) => setProfile({
+                    ...profile,
                     social: { ...profile.social, twitter: e.target.value }
                   })}
                   className="input"
@@ -311,8 +312,8 @@ const ProfileManager = () => {
                 <input
                   type="url"
                   value={profile?.social?.instagram || ''}
-                  onChange={(e) => setProfile({ 
-                    ...profile, 
+                  onChange={(e) => setProfile({
+                    ...profile,
                     social: { ...profile.social, instagram: e.target.value }
                   })}
                   className="input"
@@ -326,8 +327,8 @@ const ProfileManager = () => {
                 <input
                   type="url"
                   value={profile?.social?.website || ''}
-                  onChange={(e) => setProfile({ 
-                    ...profile, 
+                  onChange={(e) => setProfile({
+                    ...profile,
                     social: { ...profile.social, website: e.target.value }
                   })}
                   className="input"
@@ -347,7 +348,7 @@ const ProfileManager = () => {
         {activeTab === 'stats' && (
           <div className="bg-dark-800/50 rounded-2xl p-6 border border-dark-700 space-y-6">
             <p className="text-dark-400 mb-4">Estas estadísticas se muestran en la sección "Sobre Mí"</p>
-            
+
             <div className="grid md:grid-cols-3 gap-6">
               <div>
                 <label className="block text-sm font-medium mb-2">Años de Experiencia</label>
@@ -355,8 +356,8 @@ const ProfileManager = () => {
                   type="number"
                   min="0"
                   value={profile?.stats?.experience || 0}
-                  onChange={(e) => setProfile({ 
-                    ...profile, 
+                  onChange={(e) => setProfile({
+                    ...profile,
                     stats: { ...profile.stats, experience: parseInt(e.target.value) }
                   })}
                   className="input"
@@ -368,8 +369,8 @@ const ProfileManager = () => {
                   type="number"
                   min="0"
                   value={profile?.stats?.projects || 0}
-                  onChange={(e) => setProfile({ 
-                    ...profile, 
+                  onChange={(e) => setProfile({
+                    ...profile,
                     stats: { ...profile.stats, projects: parseInt(e.target.value) }
                   })}
                   className="input"
@@ -381,8 +382,8 @@ const ProfileManager = () => {
                   type="number"
                   min="0"
                   value={profile?.stats?.clients || 0}
-                  onChange={(e) => setProfile({ 
-                    ...profile, 
+                  onChange={(e) => setProfile({
+                    ...profile,
                     stats: { ...profile.stats, clients: parseInt(e.target.value) }
                   })}
                   className="input"
@@ -404,7 +405,7 @@ const ProfileManager = () => {
           <h3 className="text-lg font-bold flex items-center gap-2">
             <FaLock /> Cambiar Contraseña
           </h3>
-          
+
           <div className="space-y-4 max-w-md">
             <div>
               <label className="block text-sm font-medium mb-2">Contraseña Actual</label>

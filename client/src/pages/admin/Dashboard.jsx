@@ -95,7 +95,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
         {statCards.map((stat, index) => (
           <Link
             key={index}
@@ -105,7 +105,7 @@ const Dashboard = () => {
           >
             {stat.badge && (
               <span className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center 
-                justify-center text-xs font-bold animate-pulse">
+                justify-center text-xs font-bold animate-pulse z-10">
                 {stat.badge}
               </span>
             )}
@@ -114,13 +114,13 @@ const Dashboard = () => {
               <stat.icon className="text-xl text-white" />
             </div>
             <p className="text-dark-400 text-sm">{stat.title}</p>
-            <p className="text-3xl font-bold mt-1">{stat.value}</p>
+            <p className="text-2xl sm:text-3xl font-bold mt-1">{stat.value}</p>
           </Link>
         ))}
       </div>
 
       {/* Content Grid */}
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
         {/* Recent Messages */}
         <div className="bg-dark-800/50 rounded-2xl border border-dark-700 overflow-hidden">
           <div className="p-6 border-b border-dark-700 flex justify-between items-center">

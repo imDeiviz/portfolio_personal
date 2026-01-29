@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { 
-  FaPlus, FaEdit, FaTrash, FaTimes, FaSave, FaReact, FaNodeJs, 
-  FaDatabase, FaTools, FaCode, FaEye, FaEyeSlash 
+import {
+  FaPlus, FaEdit, FaTrash, FaTimes, FaSave, FaReact, FaNodeJs,
+  FaDatabase, FaTools, FaCode, FaEye, FaEyeSlash
 } from 'react-icons/fa'
 import { skillsAPI } from '../../services/api'
 
@@ -168,13 +168,13 @@ const SkillsManager = () => {
             </div>
 
             <div className="p-4">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                 {categorySkills.map((skill) => (
-                  <div 
+                  <div
                     key={skill._id}
                     className={`flex items-center justify-between p-3 rounded-xl border transition-all
-                      ${skill.isActive 
-                        ? 'bg-dark-700/30 border-dark-600 hover:border-dark-500' 
+                      ${skill.isActive
+                        ? 'bg-dark-700/30 border-dark-600 hover:border-dark-500'
                         : 'bg-dark-800/50 border-red-500/30 opacity-60'
                       }`}
                   >
@@ -183,7 +183,7 @@ const SkillsManager = () => {
                         <span className="font-medium">{skill.name}</span>
                         <div className="flex items-center gap-2 mt-1">
                           <div className="w-16 h-1.5 bg-dark-600 rounded-full overflow-hidden">
-                            <div 
+                            <div
                               className={`h-full bg-${config.color}-400 rounded-full`}
                               style={{ width: `${skill.level}%` }}
                             ></div>
@@ -195,9 +195,8 @@ const SkillsManager = () => {
                     <div className="flex gap-1">
                       <button
                         onClick={() => toggleActive(skill)}
-                        className={`p-1.5 rounded-lg transition-colors ${
-                          skill.isActive ? 'text-dark-400 hover:bg-dark-600' : 'text-red-400'
-                        }`}
+                        className={`p-1.5 rounded-lg transition-colors ${skill.isActive ? 'text-dark-400 hover:bg-dark-600' : 'text-red-400'
+                          }`}
                         title={skill.isActive ? 'Ocultar' : 'Mostrar'}
                       >
                         {skill.isActive ? <FaEye size={14} /> : <FaEyeSlash size={14} />}
@@ -237,8 +236,8 @@ const SkillsManager = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-dark-900 rounded-2xl w-full max-w-md border border-dark-700">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-dark-900 rounded-t-2xl sm:rounded-2xl w-full max-w-md border-t sm:border border-dark-700">
             <div className="flex justify-between items-center p-6 border-b border-dark-700">
               <h2 className="text-xl font-bold">
                 {editingSkill ? 'Editar Habilidad' : 'Nueva Habilidad'}

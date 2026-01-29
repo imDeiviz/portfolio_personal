@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { 
-  FaHome, FaUser, FaProjectDiagram, FaCode, FaEnvelope, 
-  FaBars, FaTimes, FaSignOutAlt, FaExternalLinkAlt 
+import {
+  FaHome, FaUser, FaProjectDiagram, FaCode, FaEnvelope,
+  FaBars, FaTimes, FaSignOutAlt, FaExternalLinkAlt
 } from 'react-icons/fa'
 
 const AdminLayout = () => {
@@ -31,18 +31,42 @@ const AdminLayout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-dark-950 flex">
+    <div className="min-h-screen bg-dark-950 flex flex-col md:flex-row">
+      {/* Mobile Header */}
+      <header className="md:hidden bg-dark-900 border-b border-dark-800 px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+        <Link to="/admin" className="text-xl font-bold gradient-text">
+          Admin Panel
+        </Link>
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="p-2 hover:bg-dark-800 rounded-lg transition-colors text-white"
+        >
+          {sidebarOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+        </button>
+      </header>
+
+      {/* Sidebar Overlay (Mobile) */}
+      {sidebarOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-dark-900 border-r border-dark-800 
-        transition-all duration-300 fixed h-full z-40 flex flex-col`}>
-        {/* Logo */}
-        <div className="p-4 border-b border-dark-800 flex items-center justify-between">
+      <aside className={`
+        fixed md:sticky top-0 left-0 h-full md:h-screen z-50
+        ${sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0 md:w-20'} 
+        bg-dark-900 border-r border-dark-800 transition-all duration-300 flex flex-col
+      `}>
+        {/* Logo (Desktop) */}
+        <div className="hidden md:flex p-4 border-b border-dark-800 items-center justify-between">
           {sidebarOpen && (
             <Link to="/admin" className="text-xl font-bold gradient-text">
               Admin Panel
             </Link>
           )}
-          <button 
+          <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 hover:bg-dark-800 rounded-lg transition-colors"
           >
@@ -51,50 +75,51 @@ const AdminLayout = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {menuItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
+              onClick={() => window.innerWidth < 768 && setSidebarOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200
-                ${isActive(item.path, item.exact) 
-                  ? 'bg-gradient-to-r from-primary-500/20 to-secondary-500/20 text-primary-400 border border-primary-500/30' 
+                ${isActive(item.path, item.exact)
+                  ? 'bg-gradient-to-r from-primary-500/20 to-secondary-500/20 text-primary-400 border border-primary-500/30'
                   : 'text-dark-400 hover:bg-dark-800 hover:text-white'
                 }`}
             >
-              <item.icon size={20} />
-              {sidebarOpen && <span>{item.label}</span>}
+              <item.icon size={20} className="min-w-[20px]" />
+              {(sidebarOpen || window.innerWidth < 768) && <span>{item.label}</span>}
             </Link>
           ))}
         </nav>
 
         {/* User Info & Actions */}
-        <div className="p-4 border-t border-dark-800 space-y-2">
+        <div className="p-4 border-t border-dark-800 space-y-2 bg-dark-900">
           <Link
             to="/"
             target="_blank"
             className="flex items-center gap-3 px-4 py-3 rounded-xl text-dark-400 
               hover:bg-dark-800 hover:text-white transition-all"
           >
-            <FaExternalLinkAlt size={18} />
-            {sidebarOpen && <span>Ver Portfolio</span>}
+            <FaExternalLinkAlt size={18} className="min-w-[18px]" />
+            {(sidebarOpen || window.innerWidth < 768) && <span>Ver Portfolio</span>}
           </Link>
-          
+
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-400 
               hover:bg-red-500/10 transition-all"
           >
-            <FaSignOutAlt size={20} />
-            {sidebarOpen && <span>Cerrar Sesión</span>}
+            <FaSignOutAlt size={20} className="min-w-[20px]" />
+            {(sidebarOpen || window.innerWidth < 768) && <span>Cerrar Sesión</span>}
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className={`flex-1 ${sidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300`}>
-        {/* Top Bar */}
-        <header className="bg-dark-900/50 backdrop-blur-lg border-b border-dark-800 px-6 py-4 sticky top-0 z-30">
+      <div className="flex-1 flex flex-col min-w-0 transition-all duration-300">
+        {/* Top Bar (Desktop) */}
+        <header className="hidden md:block bg-dark-900/50 backdrop-blur-lg border-b border-dark-800 px-6 py-4 sticky top-0 z-30">
           <div className="flex justify-between items-center">
             <h1 className="text-xl font-semibold">
               {menuItems.find(item => isActive(item.path, item.exact))?.label || 'Admin'}
@@ -112,7 +137,7 @@ const AdminLayout = () => {
         </header>
 
         {/* Page Content */}
-        <main className="p-6">
+        <main className="p-4 md:p-6 lg:p-8">
           <Outlet />
         </main>
       </div>

@@ -23,6 +23,7 @@ graph TD
         A[React SPA] --> B[Context API - Auth State]
         A --> C[Custom Hooks - useFetch/useAuth]
         A --> D[Axios Interceptors]
+        A --> R[Responsive Mixins/Tailwind]
     end
 
     subgraph Backend
@@ -34,6 +35,21 @@ graph TD
 
     H --> I[(MongoDB Atlas)]
 ```
+
+---
+
+## 📱 Mobile-First Implementation details
+
+### Public Section
+- **Grid System**: Flexible `grid-cols-1 md:grid-cols-2 lg:grid-cols-3` pattern.
+- **Typography**: Scalable `rem` units for all text.
+- **Navigation**: Full-screen overlay menu for mobile accessibility.
+
+### Admin Section
+- **Drawer Pattern**: Side-navigation transforms into a smooth drawer overlay on mobile.
+- **Split View Inbox**: Messages adapt from a side-by-side list to a toggled list/detail view.
+- **Adaptive Modals**: CRUD interfaces transition to full-screen or bottom-sheet behavior on extra-small screens.
+- **Fluid Grids**: Dashboard cards and project galleries use responsive breakpoints (`sm`, `md`, `lg`).
 
 ---
 

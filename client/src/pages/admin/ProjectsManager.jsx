@@ -181,17 +181,17 @@ const ProjectsManager = () => {
       </div>
 
       {/* Projects Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
-          <div 
-            key={project._id} 
+          <div
+            key={project._id}
             className={`bg-dark-800/50 rounded-2xl overflow-hidden border transition-all
               ${project.isActive ? 'border-dark-700' : 'border-red-500/30 opacity-60'}`}
           >
             {/* Image */}
             <div className="relative h-40 overflow-hidden">
-              <img 
-                src={project.image || 'https://via.placeholder.com/400x200'} 
+              <img
+                src={project.image || 'https://via.placeholder.com/400x200'}
                 alt={project.title}
                 className="w-full h-full object-cover"
               />
@@ -213,7 +213,7 @@ const ProjectsManager = () => {
             <div className="p-4">
               <h3 className="font-bold text-lg mb-1">{project.title}</h3>
               <p className="text-dark-400 text-sm line-clamp-2 mb-3">{project.description}</p>
-              
+
               {/* Technologies */}
               <div className="flex flex-wrap gap-1 mb-4">
                 {project.technologies.slice(0, 3).map((tech, i) => (
@@ -247,18 +247,16 @@ const ProjectsManager = () => {
                 <div className="flex gap-1">
                   <button
                     onClick={() => toggleFeatured(project)}
-                    className={`p-2 rounded-lg transition-colors ${
-                      project.featured ? 'text-yellow-400 bg-yellow-500/10' : 'text-dark-400 hover:bg-dark-700'
-                    }`}
+                    className={`p-2 rounded-lg transition-colors ${project.featured ? 'text-yellow-400 bg-yellow-500/10' : 'text-dark-400 hover:bg-dark-700'
+                      }`}
                     title={project.featured ? 'Quitar de destacados' : 'Destacar'}
                   >
                     <FaStar />
                   </button>
                   <button
                     onClick={() => toggleActive(project)}
-                    className={`p-2 rounded-lg transition-colors ${
-                      project.isActive ? 'text-dark-400 hover:bg-dark-700' : 'text-red-400 bg-red-500/10'
-                    }`}
+                    className={`p-2 rounded-lg transition-colors ${project.isActive ? 'text-dark-400 hover:bg-dark-700' : 'text-red-400 bg-red-500/10'
+                      }`}
                     title={project.isActive ? 'Ocultar' : 'Mostrar'}
                   >
                     {project.isActive ? <FaEye /> : <FaEyeSlash />}
@@ -296,8 +294,8 @@ const ProjectsManager = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-dark-900 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-dark-700">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-dark-900 rounded-t-2xl sm:rounded-2xl w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto border-t sm:border border-dark-700">
             {/* Modal Header */}
             <div className="flex justify-between items-center p-6 border-b border-dark-700 sticky top-0 bg-dark-900">
               <h2 className="text-xl font-bold">
