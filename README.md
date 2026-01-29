@@ -1,141 +1,109 @@
-# 🚀 Portfolio Platform & CMS
+# 🚀 Full-Stack Portfolio Platform & Headless CMS
 
-![Status](https://img.shields.io/badge/STATUS-PRODUCTION_READY-success?style=for-the-badge&logo=mediamarkt)
-![Stack](https://img.shields.io/badge/STACK-MERN_FULLSTACK-blue?style=for-the-badge&logo=react)
-![License](https://img.shields.io/badge/LICENSE-MIT-lightgrey?style=for-the-badge)
+![Production Ready](https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge&logo=rocket)
+![Stack](https://img.shields.io/badge/Stack-MERN--Stack-blue?style=for-the-badge&logo=mongodb)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-> **A high-performance, modular personal brand platform built to demonstrate advanced Full-Stack architecture capability.**
-> Combines a high-conversion public frontend with a secure, authentication-protected dedicated Admin Dashboard for real-time content management.
+> **A high-performance, modular personal brand platform built to demonstrate advanced engineering capabilities in System Design, Security, and Scalability.**
 
 ---
 
 ## 🚀 Overview
 
-**The Challenge:**
-Most developer portfolios are static, making updates tedious and often resulting in outdated content. Dependencies on external CMS systems often bloat the tech stack and reduce performance.
+This platform is more than just a portfolio; it's a **custom-built Headless CMS solution**. It solves the problem of static content by providing a secure, real-time administrative interface for managing projects, skills, and business inquiries without touching the codebase.
 
-**The Solution:**
-A custom-built **Headless CMS architecture** that serves two distinct apps from a unified backend:
-1.  **Public Showcase:** A server-side optimized, responsive application for visitors.
-2.  **Admin Console:** A protected, feature-rich dashboard for the owner to manage projects, skills, and messages.
-
-**Target Audience:**
-Hiring Managers and Tech Leads looking for proof of **System Design**, **Database Architecture**, and **Clean Code** skills.
+- **Problem solved**: Elimination of static site maintenance overhead.
+- **Real-world use case**: Centralized hub for professional identity and lead generation.
+- **Primary goal**: Demonstrate production-grade full-stack architecture.
 
 ---
 
 ## 🧰 Tech Stack
 
-Built with a focus on performance, scalability, and type safety.
-
-| Layer | Technology | Rationale |
-|:--- |:--- |:--- |
-| **Frontend** | **React 18 + Vite** | Fast HMR, Component Composition, Custom Hooks |
-| **Styling** | **Tailwind CSS** | Utility-first, responsive design system, dark mode |
-| **Backend** | **Node.js + Express** | Event-driven non-blocking I/O, RESTful API design |
-| **Database** | **MongoDB + Mongoose** | Flexible schema, Aggregation pipelines for analytics |
-| **Security** | **JWT (Access/Refresh)** | Stateless authentication, Bcrypt hashing, Helmet headers |
-| **Uploads** | **Multer + Sharp** | Image processing and optimized storage streaming |
-| **Deploy** | **Docker / Railway** | Containerized environment, CI/CD ready flow |
+| Layer | Technology | Key Usage |
+| :--- | :--- | :--- |
+| **Frontend** | **React 18 + Vite** | High-performance SPA with Atomic Design. |
+| **Styling** | **Tailwind CSS** | Responsive Design System & Glassmorphism UI. |
+| **Backend** | **Node.js + Express** | RESTful API with Modular Middleware architecture. |
+| **Database** | **MongoDB Atlas** | NoSQL document storage with Mongoose ODM. |
+| **Security** | **JWT + Bcrypt** | Stateless Authentication & Hash-based security. |
+| **Deployment** | **Render / Docker** | CI/CD automated pipeline for production. |
 
 ---
 
 ## 🔥 Key Features
 
-### 🎨 Visitor Experience (Public)
-*   **Dynamic Routing**: SEO-friendly detail pages for every project (`/proyecto/:slug`).
-*   **Smart Filtering**: Real-time project categorization (Frontend/Backend/Fullstack).
-*   **Interactive UI**: Micro-interactions, hover effects, and smooth scrolling.
-*   **Optimized Assets**: Lazy loading images and code splitting for <1s LCP.
-
-### 🛡️ Owner Control (Admin)
-*   **Secure Auth Gate**: Protected routes with persistent session management.
-*   **CRUD Operations**: Full lifecycle management for Projects, Experience, and Skills.
-*   **Dashboard Analytics**: At-a-glance view of portfolio stats (Active projects, messages).
-*   **Message Center**: Integrated inbox for contact form submissions.
+- **🛡️ Secure Admin Dashboard**: Authenticated control panel for real-time CRUD operations.
+- **⚡ Performance First**: Zero-clutter codebase resulting in near-instant LCP (Largest Contentful Paint).
+- **🎨 Responsive UI**: Mobile-first approach ensuring seamless experience across all viewports.
+- **📩 Lead Management**: Integrated contact system with backend validation and persistence.
+- **Dynamic Content**: Data-driven architecture—no hardcoded projects or skills.
 
 ---
 
 ## 🧠 Architecture (High Level)
 
-The system works on a loosely coupled **Client-Server** model.
+The system is designed with a **Separation of Concerns** principle.
+
+- **Frontend**: Lightweight consumer of the API, utilizing React Context for global state.
+- **Backend API**: Stateless service handling business logic, authentication, and data persistence.
+- **Data Persistence**: Scalable NoSQL architecture optimized for flexible content schemas.
 
 ```mermaid
 graph LR
-    User(Visitante) --> PublicUI[Client: Public App]
-    Owner(Admin) --> AdminUI[Client: Dashboard]
-    
-    PublicUI --> API[REST API /api/v1]
-    AdminUI --> API
-    
-    subgraph Data Layer
-        API --> Controller
-        Controller --> Service
-        Service --> DataBase[(MongoDB)]
-    end
+    V(Visitor) --> P[Public Frontend]
+    A(Admin) --> D[Admin Dashboard]
+    P --> API[REST API]
+    D --> API
+    API --> DB[(MongoDB)]
 ```
-
-*   **Frontend**: Consumes API via a unified `ApiService` class with interceptors for error handling.
-*   **Backend**: Controller-Service-Repository pattern (simplified) to decouple business logic from Express routes.
-*   **State Management**: React Context (`AuthContext`) for global session state; scoped state for UI components.
 
 ---
 
 ## 🛠️ Getting Started
 
-To review the codebase locally:
+For technical reviewers who wish to audit the implementation locally:
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/tu-usuario/portfolio-mern.git
+# Clone the repository
+git clone https://github.com/placeholder/portfolio.git
 
-# 2. Install dependencies (Root, Client, Server)
+# Install all dependencies
 npm run install-all
 
-# 3. Setup Environment
-# Rename .env.example to .env in /server
-
-# 4. Start Development Server
+# Launch the development environment (Concurrently)
 npm run dev
-# Front: http://localhost:5173
-# Back: http://localhost:5000
 ```
 
 ---
 
 ## 📈 Technical Highlights
 
-*   **Modular Component Design**: STRICT separation between `features/` (Projects, Skills) and `components/common` (Buttons, Inputs).
-*   **API-First Approach**: The backend is designed as a standalone API that can serve multiple frontends (Web, Mobile).
-*   **Security Best Practices**:
-    *   Passwords salted & hashed (Bcrypt).
-    *   JWT payloads minimal and non-sensitive.
-    *   CORS configured for specific origins.
-    *   Input sanitization on all endpoints.
+- **Modular MVC Implementation**: Strictly organized backend logic for maintainability.
+- **Clean Code Standards**: Consistent naming conventions and DRY principles throughout.
+- **Security Protocols**: Implementation of CORS, Helmet, and Payload Sanitization.
+- **Scalable Design**: Prepared to integrate with Cloud Storage (S3/Cloudinary) for enterprise-level scaling.
 
 ---
 
 ## 💡 Why this project?
 
-This project demonstrates my ability to:
-1.  **Architect** a complete solution from scratch without relying on "magic" frameworks like Next.js for basic needs, showing deep understanding of the underlying module systems.
-2.  **Maintain** clean, readable code with consistent patterns (MVC in back, Composition in front).
-3.  **Deliver** a product that looks professional and behaves reliably in production.
+This project showcases my ability to transition from a "developer" to an **"engineer"**. Instead of relying on monolithic frameworks, I chose the MERN stack to demonstrate mastery over the full lifecycle of a web application: from database schema design to secure API implementation and responsive UI development.
 
 ---
 
 ## 🔮 Roadmap
 
-*   [ ] **AI Integration**: Auto-generate project descriptions based on git commit history.
-*   [ ] **Blog Engine**: Markdown-based technical blog with syntax highlighting.
-*   [ ] **Testing**: E2E test suite (Cypress) for critical Admin flows.
+- [ ] **AI-Driven Analytics**: Integrate ML to track project engagement.
+- [ ] **Technical Blog**: Markdown-supported engine for thought leadership.
+- [ ] **E2E Testing**: Full coverage with Cypress for critical admin flows.
 
 ---
 
 ## 👨‍💻 Author
 
-**David**  
-*Senior Full-Stack Engineer*
+**[David Rojas]**  
+*Senior Full-Stack Developer*
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/tu-perfil)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/tu-usuario)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat-square&logo=linkedin)](https://linkedin.com/in/placeholder)
+[![GitHub](https://img.shields.io/badge/GitHub-Projects-black?style=flat-square&logo=github)](https://github.com/imDeiviz)

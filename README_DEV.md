@@ -1,131 +1,113 @@
-# 📕 Portfolio - Developer Documentation
+# 📕 Portfolio MERN - Developer Documentation
 
-> **INTERNAL USE ONLY**: Documentación técnica para desarrollo, mantenimiento y escalado del sistema.
-
----
-
-## 🏗️ Arquitectura del Sistema
-
-El proyecto opera como un **Monorepo Híbrido** (Lógico).
-Contiene `client` (SPA) y `server` (API) en el mismo repositorio para facilitar la consistencia de tipos y despliegue unificado en etapas tempranas.
-
-### Diagrama de Flujo de Datos
-
-**Usuario Final**
-`Browser` -> `React (Public Routes)` -> `Axios (GET)` -> `Express (Public Endpoints)` -> `MongoDB`
-
-**Administrador**
-`Browser` -> `React (Protected Routes)` -> `Axios (POST/PUT + Bearer Token)` -> `Express (Auth Middleware)` -> `Controller` -> `MongoDB`
+> **LEVEL: SENIOR ENGINEER**  
+> This document provides a deep dive into the technical implementation, architectural decisions, and setup instructions required to reconstruct or extend the system.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🏗️ System Architecture
 
-### `/server` (Backend Node.js)
-```bash
-server/
-├── config/             # Configs de DB (db.js) y variables
-├── controllers/        # Lógica de negocio (ProjectController, AuthController)
-├── middleware/         # Interceptores (protect.js, upload.js)
-├── models/             # Schemas Mongoose (Strongly Typed)
-├── routes/             # Definición de Endpoints API
-├── seeders/            # Scripts de inicialización de datos (dummy data)
-├── uploads/            # Storage local para imágenes (en dev)
-└── server.js           # Entry point servidor
-```
+The project follows a **Decoupled Client-Server** pattern, designed for high scalability and separation of concerns.
 
-### `/client` (Frontend React)
-```bash
-client/
-├── src/
-│   ├── components/
-│   │   ├── admin/      # UI específica de Dashboard (Tablas, Forms)
-│   │   ├── home/       # UI específica de Landing (Hero, Grid)
-│   │   └── shared/     # Componentes atómicos (Button, Input, Modal)
-│   ├── context/        # Global State (AuthContext)
-│   ├── hooks/          # Hooks de Lógica (useAuth, useFetch)
-│   ├── services/       # Capa de API (axios instances)
-│   ├── layouts/        # Layout Wrappers (AdminLayout vs MainLayout)
-│   ├── pages/          # Vistas (Page Components)
-│   └── utils/          # Helpers (formatDate, validators)
-└── dist/               # Build de producción
+### High-Level Flow
+1. **Request Lifecycle**: `Client (Axios)` -> `Express Middleware (Auth/Upload)` -> `Controller` -> `Service/Model (Mongoose)` -> `MongoDB`.
+2. **Auth Flow**: Proprietary JWT-based system.
+   - **Login**: `/api/auth/login` generates a signed JWT.
+   - **Persistence**: Token stored in local state/storage.
+   - **Validation**: `protect` middleware verifies HMAC signature before granting access to Admin routes.
+
+### Visual Architecture (Mermaid)
+```mermaid
+graph TD
+    subgraph Frontend
+        A[React SPA] --> B[Context API - Auth State]
+        A --> C[Custom Hooks - useFetch/useAuth]
+        A --> D[Axios Interceptors]
+    end
+
+    subgraph Backend
+        D --> E[Express Server]
+        E --> F[Auth Middleware]
+        E --> G[MVC Controllers]
+        G --> H[Mongoose Models]
+    end
+
+    H --> I[(MongoDB Atlas)]
 ```
 
 ---
 
-## 🧱 Guía de Construcción (From Scratch)
+## 📁 Directory Structure & Module Design
 
-### 1. Inicialización
+### `/server` (The API Engine)
+- **`config/`**: Database abstraction and environment management.
+- **`controllers/`**: Pure business logic. Decoupled from routes for unit testability.
+- **`middleware/`**: 
+  - `protect.js`: RBAC (Role-Based Access Control) implementation.
+  - `upload.js`: Multer configuration for stream-based image processing.
+- **`models/`**: Strongly typed schemas with Mongoose middlewares (e.g., password hashing on save).
+- **`routes/`**: Endpoint definitions following RESTful naming conventions.
+
+### `/client` (The Consumer)
+- **`src/components/admin/`**: High-density UI for data management.
+- **`src/components/home/`**: Performance-optimized sections for the public view.
+- **`src/services/api.js`**: Unified API client using Axios instances with predefined `baseURL` and `headers`.
+- **`src/context/`**: Global state persistence (Authentication).
+
+---
+
+## 🧱 Construction Guide (Step-by-Step)
+
+### 1. Project Initialization
 ```bash
-# Configuración inicial del monorepo
+mkdir portfolio-mern && cd portfolio-mern
 npm init -y
-# Instalar concurrently para correr ambos entornos
-npm i concurrently -D
+npm i concurrently nodemon -D
 ```
 
-### 2. Backend Setup
-**Stack**: Express, Mongoose, Dotenv, Cors.
-**Decisión Técnica**: Uso de `MVC` (Model View Controller) para mantener el `server.js` limpio.
-**Seeders**: Se creó `seed.js` para limpiar y repoblar la BD en un comando (`npm run seed`), crucial para testing rápido.
+### 2. Backend Foundation (MVC)
+1. **Express Setup**: Configure CORS, JSON body-parsing, and global error handlers.
+2. **DB Connection**: Mongoose singleton pattern with `auto-reconnect` logic.
+3. **Security**: Implement `bcryptjs` for one-way hashing and `jsonwebtoken` for stateless sessions.
 
-### 3. Frontend Setup
-**Stack**: Vite + React + Tailwind.
-**Decisión Técnica**: Uso de `Vite` sobre CRA por rendimiento (Esbuild).
-**Estilos**: `Tailwind` configurado con prefijo o estructura base en `index.css` para colores semánticos (`--primary`, `--bg-dark`).
+### 3. Frontend Implementation
+1. **Scaffolding**: `npm create vite@latest client -- --template react`
+2. **Styling**: Tailwind CSS integration with custom variants for the "Glassmorphism" theme.
+3. **Routing**: `react-router-dom` with `ProtectedRoute` wrappers for Admin views.
 
-### 4. Base de Datos
-**Schema Design**:
-- `User`: Roles (admin), password (hashed).
-- `Project`: Array de strings para tecnologías, imágenes.
-- `Settings`: Singleton para configuración global del sitio.
+### 4. Integration & Storage
+1. **Multer**: Configured to store assets in `/uploads` with filename sanitization.
+2. **Static Serving**: Express serves the `client/dist` folder in production to avoid CORS overhead and simplify deployment.
 
 ---
 
-## 🚦 Flujo de Autenticación Moderno
+## 🚀 Production & Deployment
 
-1.  **Login**: `POST /auth/login` -> devuelve `token` (JWT).
-2.  **Storage**: Cliente guarda token en `localStorage` (o Cookie httpOnly en v2).
-3.  **Hydration**: Al recargar la página, `AuthContext` lee el token y verifica validez con `GET /auth/me`.
-    *   Si válido -> `isAuthenticated = true`.
-    *   Si inválido/expirado -> `logout()` automático.
-
----
-
-## 🚀 Producción
-
-### Variables de Entorno (`.env`)
-Requeridas para el funcionamiento en producción:
-
+### Environment Configuration (.env)
 ```env
-# SERVER
+# CRITICAL FOR PROD
+MONGODB_URI=mongodb+srv://...
+JWT_SECRET=your_32_char_long_secret
+CLIENT_URL=https://yourportfolio.com
 NODE_ENV=production
-PORT=8080
-MONGODB_URI=mongodb+srv://<user>:<pass>@cluster.mongodb.net/dbname
-JWT_SECRET=[Mínimo 32 caracteres random]
-CLIENT_URL=https://tu-dominio-frontend.com
-
-# CLIENT
-VITE_API_URL=https://tu-dominio-backend.com/api
+PORT=5000
 ```
 
-### Estrategia de Deploy
-1.  **Build Client**: `cd client && npm run build`. Genera estáticos en `/dist`.
-2.  **Servir Frontend**:
-    *   **Opción A (Separado)**: Subir `/dist` a Vercel/Netlify.
-    *   **Opción B (Unificado)**: Configurar Express para servir `/dist` estáticamente en `/*`.
+### Deployment Strategy (Render/Railway)
+1. **Build Step**: `npm run build` in root (triggers `cd client && npm run build`).
+2. **Engine**: Node.js 18+.
+3. **Health Check**: Monitor `/api/health` for uptime metrics.
 
 ---
 
-## ⚠️ Errores Comunes & Soluciones
-
-*   **Error 401 en Rutas Protegidas**: El token no se está enviando en el header. Verificar interceptor de Axios en `src/services/api.js`.
-*   **Imágenes Rotas**: En producción, asegurar que la carpeta `/uploads` tenga permisos de lectura o usar Cloudinary (recomendado para scale).
-*   **Error CORS**: El `CLIENT_URL` en el .env del servidor no coincide exactamente con el origen del frontend (ojo con trailing slashes).
+## ⚠️ Common Pitfalls & Debugging
+- **CORS Issues**: Ensure `CLIENT_URL` doesn't have a trailing slash in the `.env` file.
+- **JWT Expiry**: Default is set to 30d. For higher security, implement Refresh Tokens in `v2`.
+- **Mongoose Buffer**: If the DB is slow, increase `connectTimeoutMS` in the config.
 
 ---
 
-## 🛣️ Pipeline de Mejoras (Ideas Futuras)
-
-1.  **Cloud Storage**: Reemplazar `multer` local por `Cloudinary/S3` para persistencia de imágenes en deployments serverless (Vercel/Heroku borran fs).
-2.  **Rate Limiting**: Implementar `express-rate-limit` para evitar DDOS en login.
-3.  **Logs**: Integrar `Morgan` o `Winston` para trazabilidad de errores en producción.
+## 🛣️ Roadmap & Future Scaling
+- [ ] **Redis Caching**: Layer for frequently accessed projects to reduce DB load.
+- [ ] **Cloudinary Integration**: Fully serverless asset management.
+- [ ] **Cypress E2E**: Critical path testing for the Lead Generation form.

@@ -27,12 +27,18 @@
   
   .btn-primary {
     @apply px-6 py-3 bg-gradient-to-r from-primary-500 to-secondary-600 rounded-full font-semibold 
-           hover:shadow-lg hover:shadow-secondary-500/30 transition-all duration-300;
+           hover:shadow-lg hover:shadow-secondary-500/30 transition-all duration-300
+           active:scale-95 touch-manipulation;
+    min-width: 8rem;
+    min-height: 3rem;
   }
   
   .btn-secondary {
     @apply px-6 py-3 border border-dark-600 rounded-full font-semibold 
-           hover:border-primary-400 hover:text-primary-400 transition-all duration-300;
+           hover:border-primary-400 hover:text-primary-400 transition-all duration-300
+           active:scale-95 touch-manipulation;
+    min-width: 8rem;
+    min-height: 3rem;
   }
   
   .card {
@@ -43,11 +49,12 @@
   .input {
     @apply w-full px-4 py-3 bg-dark-900 border border-dark-700 rounded-xl 
            focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 
-           transition-colors duration-300;
+           transition-colors duration-300 text-base;
+    min-height: 3rem;
   }
   
   .nav-link {
-    @apply relative text-dark-300 hover:text-white transition-colors duration-300;
+    @apply relative text-dark-300 hover:text-white transition-colors duration-300 py-2;
   }
   
   .nav-link::after {
@@ -65,7 +72,7 @@
   }
   
   .project-card {
-    @apply card overflow-hidden;
+    @apply card overflow-hidden p-0;
   }
   
   .floating {
@@ -73,7 +80,7 @@
   }
   
   .glow {
-    @apply shadow-[0_0_40px_rgba(0,217,255,0.3)];
+    box-shadow: 0 0 2.5rem rgba(0, 217, 255, 0.3);
   }
 }
 
@@ -81,6 +88,10 @@
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .glass {
+    @apply bg-dark-950/80 backdrop-blur-lg border border-white/5;
   }
 }
 
@@ -92,13 +103,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.25rem); }
 }
 
 /* Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {

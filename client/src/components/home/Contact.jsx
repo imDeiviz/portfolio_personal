@@ -28,9 +28,9 @@ const Contact = ({ profile }) => {
       <div className="absolute w-96 h-96 bg-secondary-600 rounded-full filter blur-[80px] opacity-20 -bottom-48 -left-48"></div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="text-center mb-16">
-          <p className="text-primary-400 font-medium mb-2">HABLEMOS</p>
-          <h2 className="text-4xl md:text-5xl font-bold">Contáctame</h2>
+        <div className="text-center mb-12 sm:mb-16">
+          <p className="text-primary-400 font-medium mb-2 tracking-wider text-sm">HABLEMOS</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold">Contáctame</h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -40,14 +40,14 @@ const Contact = ({ profile }) => {
               Estoy disponible para proyectos freelance y oportunidades laborales.
             </p>
 
-            <div className="space-y-6">
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-dark-800 rounded-xl flex items-center justify-center">
-                  <FaEnvelope className="text-xl text-primary-400" />
+            <div className="space-y-4 sm:space-y-6">
+              <div className="flex items-center gap-4 group">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-dark-800 rounded-xl flex items-center justify-center transition-colors group-hover:bg-dark-700">
+                  <FaEnvelope className="text-lg sm:text-xl text-primary-400" />
                 </div>
                 <div>
-                  <p className="text-sm text-dark-400">Email</p>
-                  <a href={`mailto:${profile?.email}`} className="text-lg hover:text-primary-400 transition-colors">
+                  <p className="text-xs sm:text-sm text-dark-400">Email</p>
+                  <a href={`mailto:${profile?.email}`} className="text-base sm:text-lg hover:text-primary-400 transition-colors break-all">
                     {profile?.email}
                   </a>
                 </div>

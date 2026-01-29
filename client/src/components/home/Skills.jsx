@@ -16,7 +16,7 @@ const Skills = ({ skills }) => {
           <h2 className="text-4xl md:text-5xl font-bold">Tecnologías y <span className="gradient-text">Habilidades</span></h2>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {Object.entries(skills.grouped || {}).map(([category, categorySkills]) => {
             const cat = categoryIcons[category] || categoryIcons.tools
             const Icon = cat.icon

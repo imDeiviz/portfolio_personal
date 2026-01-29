@@ -9,7 +9,7 @@ const Services = () => {
           <h2 className="text-4xl md:text-5xl font-bold">Mis <span className="gradient-text">Servicios</span></h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           <div className="card group hover:border-primary-500/50">
             <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-blue-600 rounded-2xl 
               flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">

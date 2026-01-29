@@ -10,22 +10,22 @@ const About = ({ profile }) => {
         </div>
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="bg-gradient-to-br from-primary-500/10 to-secondary-600/10 rounded-3xl p-8 border border-dark-800">
-            <div className="grid grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div className="bg-dark-800/50 rounded-2xl p-6 text-center">
-                <h3 className="text-4xl font-bold gradient-text">{profile?.stats?.experience || 3}+</h3>
-                <p className="text-dark-400 mt-2">Años de Experiencia</p>
+                <h3 className="text-3xl sm:text-4xl font-bold gradient-text">{profile?.stats?.experience || 3}+</h3>
+                <p className="text-dark-400 mt-2 text-sm sm:text-base">Años de Experiencia</p>
               </div>
               <div className="bg-dark-800/50 rounded-2xl p-6 text-center">
-                <h3 className="text-4xl font-bold gradient-text">{profile?.stats?.projects || 50}+</h3>
-                <p className="text-dark-400 mt-2">Proyectos</p>
+                <h3 className="text-3xl sm:text-4xl font-bold gradient-text">{profile?.stats?.projects || 50}+</h3>
+                <p className="text-dark-400 mt-2 text-sm sm:text-base">Proyectos</p>
               </div>
               <div className="bg-dark-800/50 rounded-2xl p-6 text-center">
-                <h3 className="text-4xl font-bold gradient-text">{profile?.stats?.clients || 30}+</h3>
-                <p className="text-dark-400 mt-2">Clientes</p>
+                <h3 className="text-3xl sm:text-4xl font-bold gradient-text">{profile?.stats?.clients || 30}+</h3>
+                <p className="text-dark-400 mt-2 text-sm sm:text-base">Clientes</p>
               </div>
               <div className="bg-dark-800/50 rounded-2xl p-6 text-center">
-                <h3 className="text-4xl font-bold gradient-text">100%</h3>
-                <p className="text-dark-400 mt-2">Compromiso</p>
+                <h3 className="text-3xl sm:text-4xl font-bold gradient-text">100%</h3>
+                <p className="text-dark-400 mt-2 text-sm sm:text-base">Compromiso</p>
               </div>
             </div>
           </div>

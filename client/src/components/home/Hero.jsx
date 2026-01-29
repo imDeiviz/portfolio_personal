@@ -4,17 +4,18 @@ const Hero = ({ profile }) => {
   return (
     <section id="inicio" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
       {/* Background Blobs */}
-      <div className="absolute w-96 h-96 bg-primary-500 rounded-full filter blur-[80px] opacity-30 
-        top-20 -left-48 animate-pulse"></div>
-      <div className="absolute w-96 h-96 bg-secondary-600 rounded-full filter blur-[80px] opacity-30 
-        bottom-20 -right-48 animate-pulse" style={{ animationDelay: '1s' }}></div>
+      {/* Background Blobs */}
+      <div className="absolute w-64 h-64 md:w-96 md:h-96 bg-primary-500 rounded-full filter blur-3xl opacity-30 
+        -top-10 -left-20 animate-pulse"></div>
+      <div className="absolute w-64 h-64 md:w-96 md:h-96 bg-secondary-600 rounded-full filter blur-3xl opacity-30 
+        -bottom-10 -right-20 animate-pulse" style={{ animationDelay: '1s' }}></div>
 
       <div className="max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-2 gap-12 items-center relative z-10">
         <div className="text-center lg:text-left">
           <p className="text-primary-400 font-medium mb-4 tracking-wider">👋 ¡Hola! Soy</p>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6">
-            <span className="text-white">{profile?.name || 'Tu Nombre'}</span><br />
-            <span className="gradient-text">{profile?.title || 'MERN Developer'}</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight">
+            <span className="text-white block sm:inline">{profile?.name || 'Tu Nombre'} </span>
+            <span className="gradient-text block sm:inline">{profile?.title || 'MERN Developer'}</span>
           </h1>
           <p className="text-xl text-dark-400 mb-8 max-w-xl">
             {profile?.bio || 'Desarrollador Full Stack especializado en React, Node.js, Express y MongoDB.'}
@@ -49,13 +50,13 @@ const Hero = ({ profile }) => {
           </div>
         </div>
 
-        <div className="relative flex justify-center">
-          <div className="w-80 h-80 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-primary-500 to-secondary-600 p-1 floating glow">
+        <div className="relative flex justify-center order-first lg:order-last mb-12 lg:mb-0">
+          <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-primary-500 to-secondary-600 p-1 floating glow">
             <div className="w-full h-full rounded-full bg-dark-900 flex items-center justify-center overflow-hidden">
               {profile?.avatar ? (
-                <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
+                <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" loading="lazy" />
               ) : (
-                <span className="text-8xl">👨‍💻</span>
+                <span className="text-6xl sm:text-8xl">👨‍💻</span>
               )}
             </div>
           </div>
