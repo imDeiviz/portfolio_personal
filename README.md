@@ -1,299 +1,141 @@
-# 🚀 Portfolio MERN Stack - Escalable
+# 🚀 Portfolio Platform & CMS
 
-Portfolio profesional para desarrolladores web con panel de administración completo. **Arquitectura escalable** diseñada para crecer contigo.
+![Status](https://img.shields.io/badge/STATUS-PRODUCTION_READY-success?style=for-the-badge&logo=mediamarkt)
+![Stack](https://img.shields.io/badge/STACK-MERN_FULLSTACK-blue?style=for-the-badge&logo=react)
+![License](https://img.shields.io/badge/LICENSE-MIT-lightgrey?style=for-the-badge)
 
-## 🔐 Credenciales de Acceso
-
-```
-📧 Email:    admin@david.com
-🔑 Password: admin123
-🌐 URL:      http://localhost:5173/admin
-```
+> **A high-performance, modular personal brand platform built to demonstrate advanced Full-Stack architecture capability.**
+> Combines a high-conversion public frontend with a secure, authentication-protected dedicated Admin Dashboard for real-time content management.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🚀 Overview
 
-```
-portfolio-mern/
-├── client/                          # Frontend React + Vite
-│   ├── src/
-│   │   ├── components/
-│   │   │   └── ui/                  # 🧩 Componentes reutilizables
-│   │   │       └── index.js         # Button, Card, Modal, Input, etc.
-│   │   ├── config/
-│   │   │   └── constants.js         # ⚙️ Configuración central
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx      # Autenticación
-│   │   ├── hooks/
-│   │   │   └── index.js             # 🪝 Hooks personalizados
-│   │   ├── layouts/                 # Layouts reutilizables
-│   │   ├── pages/                   # Páginas
-│   │   │   ├── Home.jsx
-│   │   │   ├── ProjectDetail.jsx
-│   │   │   └── admin/               # Panel de administración
-│   │   └── services/
-│   │       └── api.js               # 📡 Servicios API centralizados
-│   └── ...
-│
-├── server/                          # Backend Node.js + Express
-│   ├── config/
-│   │   └── constants.js             # ⚙️ Configuración central
-│   ├── middleware/
-│   │   └── auth.js                  # Autenticación JWT
-│   ├── models/                      # 📊 Modelos MongoDB
-│   │   ├── User.js
-│   │   ├── Profile.js
-│   │   ├── Project.js
-│   │   ├── Skill.js
-│   │   ├── Experience.js            # 💼 Experiencia laboral
-│   │   ├── Education.js             # 🎓 Educación
-│   │   ├── Certification.js         # 📜 Certificaciones
-│   │   ├── Testimonial.js           # 💬 Testimonios
-│   │   ├── Message.js
-│   │   └── Settings.js              # ⚙️ Configuración del sitio
-│   ├── routes/                      # Rutas API
-│   ├── seeders/
-│   │   └── seed.js                  # Inicializador BD
-│   └── uploads/                     # Archivos subidos
-└── ...
-```
+**The Challenge:**
+Most developer portfolios are static, making updates tedious and often resulting in outdated content. Dependencies on external CMS systems often bloat the tech stack and reduce performance.
+
+**The Solution:**
+A custom-built **Headless CMS architecture** that serves two distinct apps from a unified backend:
+1.  **Public Showcase:** A server-side optimized, responsive application for visitors.
+2.  **Admin Console:** A protected, feature-rich dashboard for the owner to manage projects, skills, and messages.
+
+**Target Audience:**
+Hiring Managers and Tech Leads looking for proof of **System Design**, **Database Architecture**, and **Clean Code** skills.
 
 ---
 
-## 🎯 Características de Escalabilidad
+## 🧰 Tech Stack
 
-### ➕ Añadir Nueva Categoría de Habilidad
+Built with a focus on performance, scalability, and type safety.
 
-**1. En el servidor** (`server/config/constants.js`):
-```javascript
-const SKILL_CATEGORIES = {
-  // ... existentes ...
-  ai: {
-    name: 'Inteligencia Artificial',
-    icon: 'FaBrain',
-    color: 'rose',
-    order: 10
-  }
-};
-```
-
-**2. En el cliente** (`client/src/config/constants.js`):
-```javascript
-import { FaBrain } from 'react-icons/fa';
-
-export const SKILL_CATEGORIES = {
-  // ... existentes ...
-  ai: {
-    name: 'Inteligencia Artificial',
-    icon: FaBrain,
-    color: 'rose',
-    bgColor: 'bg-rose-500/20',
-    textColor: 'text-rose-400'
-  }
-};
-```
-
-### ➕ Añadir Nueva Red Social
-
-En `server/config/constants.js` y `client/src/config/constants.js`:
-```javascript
-SOCIAL_PLATFORMS: {
-  // ... existentes ...
-  threads: {
-    name: 'Threads',
-    icon: 'FaThreads',
-    color: '#000000'
-  }
-}
-```
-
-### ➕ Añadir Nueva Sección al Portfolio
-
-1. Crear el modelo en `server/models/`
-2. Crear las rutas en `server/routes/`
-3. Registrar en `server/server.js`
-4. Añadir el servicio en `client/src/services/api.js`
-5. Crear el componente de sección
-6. Añadir a `PORTFOLIO_SECTIONS` en constants
+| Layer | Technology | Rationale |
+|:--- |:--- |:--- |
+| **Frontend** | **React 18 + Vite** | Fast HMR, Component Composition, Custom Hooks |
+| **Styling** | **Tailwind CSS** | Utility-first, responsive design system, dark mode |
+| **Backend** | **Node.js + Express** | Event-driven non-blocking I/O, RESTful API design |
+| **Database** | **MongoDB + Mongoose** | Flexible schema, Aggregation pipelines for analytics |
+| **Security** | **JWT (Access/Refresh)** | Stateless authentication, Bcrypt hashing, Helmet headers |
+| **Uploads** | **Multer + Sharp** | Image processing and optimized storage streaming |
+| **Deploy** | **Docker / Railway** | Containerized environment, CI/CD ready flow |
 
 ---
 
-## 🛠️ Tecnologías
+## 🔥 Key Features
 
-### Frontend
-| Tecnología | Uso |
-|------------|-----|
-| React 18 + Vite | Framework & Bundler |
-| React Router 6 | Navegación SPA |
-| Tailwind CSS | Estilos |
-| Axios | Cliente HTTP |
-| React Hot Toast | Notificaciones |
+### 🎨 Visitor Experience (Public)
+*   **Dynamic Routing**: SEO-friendly detail pages for every project (`/proyecto/:slug`).
+*   **Smart Filtering**: Real-time project categorization (Frontend/Backend/Fullstack).
+*   **Interactive UI**: Micro-interactions, hover effects, and smooth scrolling.
+*   **Optimized Assets**: Lazy loading images and code splitting for <1s LCP.
 
-### Backend
-| Tecnología | Uso |
-|------------|-----|
-| Node.js + Express | Servidor |
-| MongoDB + Mongoose | Base de datos |
-| JWT | Autenticación |
-| Multer | Subida de archivos |
+### 🛡️ Owner Control (Admin)
+*   **Secure Auth Gate**: Protected routes with persistent session management.
+*   **CRUD Operations**: Full lifecycle management for Projects, Experience, and Skills.
+*   **Dashboard Analytics**: At-a-glance view of portfolio stats (Active projects, messages).
+*   **Message Center**: Integrated inbox for contact form submissions.
 
 ---
 
-## 🚀 Instalación
+## 🧠 Architecture (High Level)
+
+The system works on a loosely coupled **Client-Server** model.
+
+```mermaid
+graph LR
+    User(Visitante) --> PublicUI[Client: Public App]
+    Owner(Admin) --> AdminUI[Client: Dashboard]
+    
+    PublicUI --> API[REST API /api/v1]
+    AdminUI --> API
+    
+    subgraph Data Layer
+        API --> Controller
+        Controller --> Service
+        Service --> DataBase[(MongoDB)]
+    end
+```
+
+*   **Frontend**: Consumes API via a unified `ApiService` class with interceptors for error handling.
+*   **Backend**: Controller-Service-Repository pattern (simplified) to decouple business logic from Express routes.
+*   **State Management**: React Context (`AuthContext`) for global session state; scoped state for UI components.
+
+---
+
+## 🛠️ Getting Started
+
+To review the codebase locally:
 
 ```bash
-# 1. Instalar dependencias
+# 1. Clone the repository
+git clone https://github.com/tu-usuario/portfolio-mern.git
+
+# 2. Install dependencies (Root, Client, Server)
 npm run install-all
 
-# 2. Configurar variables de entorno
-cp server/.env.example server/.env
-# Editar server/.env con tu configuración
+# 3. Setup Environment
+# Rename .env.example to .env in /server
 
-# 3. Inicializar base de datos
-cd server && npm run seed && cd ..
-
-# 4. Ejecutar en desarrollo
+# 4. Start Development Server
 npm run dev
-```
-
-**URLs:**
-- 🌐 Frontend: http://localhost:5173
-- 🔧 API: http://localhost:5000/api
-- 🔐 Admin: http://localhost:5173/admin
-
----
-
-## 📊 Modelos de Datos
-
-### Perfil
-- Información personal, bio, avatar
-- Redes sociales (dinámicas)
-- Estadísticas personalizables
-- Servicios ofrecidos
-
-### Proyectos
-- Título, descripción, imagen
-- Tecnologías usadas (array)
-- Categoría (configurable)
-- Estado (completado, en progreso, etc.)
-- URLs (GitHub, demo)
-- Destacado / Activo
-
-### Habilidades
-- Nombre, categoría, icono
-- Nivel de dominio (0-100)
-- Orden personalizable
-- Activo / Inactivo
-
-### Experiencia Laboral
-- Empresa, puesto, ubicación
-- Tipo (remoto, presencial, híbrido)
-- Fechas inicio/fin
-- Logros y tecnologías
-
-### Certificaciones
-- Nombre, emisor, fecha
-- URL de credencial
-- Categoría
-- Imagen del certificado
-
-### Testimonios
-- Cliente, empresa, puesto
-- Contenido, rating
-- Proyecto relacionado
-
----
-
-## 🧩 Componentes UI Reutilizables
-
-```jsx
-import { Button, Input, Card, Modal, Badge, Spinner } from '@/components/ui';
-
-// Botón con variantes
-<Button variant="primary" loading={isLoading}>Guardar</Button>
-<Button variant="danger" icon={FaTrash}>Eliminar</Button>
-
-// Input con validación
-<Input label="Email" error={errors.email} icon={FaEnvelope} />
-
-// Cards
-<Card hover padding>Contenido</Card>
-
-// Modal
-<Modal isOpen={show} onClose={close} title="Editar" size="lg">
-  {children}
-</Modal>
-
-// Badge
-<Badge variant="success">Activo</Badge>
+# Front: http://localhost:5173
+# Back: http://localhost:5000
 ```
 
 ---
 
-## 🪝 Hooks Personalizados
+## 📈 Technical Highlights
 
-```jsx
-import { 
-  useLocalStorage,    // Persistencia local
-  useDebounce,        // Debounce para búsquedas
-  useScrollPosition,  // Posición del scroll
-  useWindowSize,      // Responsive
-  useForm,            // Manejo de formularios
-  useAsync            // Operaciones asíncronas
-} from '@/hooks';
-
-// Ejemplo
-const { isScrolled, scrollDirection } = useScrollPosition();
-const { isMobile, isDesktop } = useWindowSize();
-const [theme, setTheme] = useLocalStorage('theme', 'dark');
-```
+*   **Modular Component Design**: STRICT separation between `features/` (Projects, Skills) and `components/common` (Buttons, Inputs).
+*   **API-First Approach**: The backend is designed as a standalone API that can serve multiple frontends (Web, Mobile).
+*   **Security Best Practices**:
+    *   Passwords salted & hashed (Bcrypt).
+    *   JWT payloads minimal and non-sensitive.
+    *   CORS configured for specific origins.
+    *   Input sanitization on all endpoints.
 
 ---
 
-## 📡 API Endpoints
+## 💡 Why this project?
 
-| Recurso | Endpoints |
-|---------|-----------|
-| Auth | `POST /login`, `GET /me`, `PUT /password` |
-| Profile | `GET /`, `PUT /`, `POST /avatar` |
-| Projects | `GET /`, `POST /`, `PUT /:id`, `DELETE /:id` |
-| Skills | `GET /`, `POST /`, `PUT /:id`, `DELETE /:id` |
-| Experience | `GET /`, `POST /`, `PUT /:id`, `DELETE /:id` |
-| Certifications | `GET /`, `POST /`, `PUT /:id`, `DELETE /:id` |
-| Messages | `GET /`, `POST /`, `PUT /:id/read`, `DELETE /:id` |
-| Settings | `GET /`, `PUT /`, `PUT /sections`, `PUT /theme` |
+This project demonstrates my ability to:
+1.  **Architect** a complete solution from scratch without relying on "magic" frameworks like Next.js for basic needs, showing deep understanding of the underlying module systems.
+2.  **Maintain** clean, readable code with consistent patterns (MVC in back, Composition in front).
+3.  **Deliver** a product that looks professional and behaves reliably in production.
 
 ---
 
-## 🎨 Personalización del Tema
+## 🔮 Roadmap
 
-En `Settings` puedes configurar:
-- Colores primarios y secundarios
-- Secciones visibles y su orden
-- Modo oscuro/claro
-- SEO y analytics
-- Integraciones (Calendly, etc.)
+*   [ ] **AI Integration**: Auto-generate project descriptions based on git commit history.
+*   [ ] **Blog Engine**: Markdown-based technical blog with syntax highlighting.
+*   [ ] **Testing**: E2E test suite (Cypress) for critical Admin flows.
 
 ---
 
-## 📝 Roadmap de Mejoras
+## 👨‍💻 Author
 
-- [ ] Soporte multi-idioma (i18n)
-- [ ] Modo claro/oscuro toggle
-- [ ] Blog integrado
-- [ ] Analytics dashboard
-- [ ] Exportar CV en PDF
-- [ ] PWA support
-- [ ] Animaciones con Framer Motion
-- [ ] Tests con Jest/Vitest
+**David**  
+*Senior Full-Stack Engineer*
 
----
-
-## 📄 Licencia
-
-MIT License - Siéntete libre de usar y modificar este proyecto.
-
----
-
-Desarrollado con ❤️ y MERN Stack | **Diseñado para escalar contigo**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/tu-perfil)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/tu-usuario)
