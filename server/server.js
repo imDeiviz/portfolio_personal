@@ -24,7 +24,31 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ==================== DATABASE CONNECTION ====================
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio')
-  .then(() => console.log('✅ MongoDB conectado'))
+  .then(async () => {
+    console.log('✅ MongoDB conectado');
+    // AUTO-FIX: Verificar usuario admin al iniciar
+    try {
+      const User = require('./models/User');
+      const admin = await User.findOne({ email: 'admin@david.com' });
+      if (admin) {
+        console.log('🔍 [STARTUP CHECK] Admin user FOUND in DB.');
+        admin.password = 'admin123';
+        await admin.save();
+        console.log('✅ [STARTUP CHECK] Admin password FORCE RESET to: admin123');
+      } else {
+        console.log('❌ [STARTUP CHECK] Admin user NOT FOUND in DB. Creating...');
+        await User.create({
+          name: 'David Admin',
+          email: 'admin@david.com',
+          password: 'admin123',
+          role: 'admin'
+        });
+        console.log('✅ [STARTUP CHECK] Admin user CREATED.');
+      }
+    } catch (err) {
+      console.error('⚠️ [STARTUP CHECK] Error checking admin:', err.message);
+    }
+  })
   .catch(err => console.error('❌ Error MongoDB:', err));
 
 // ==================== API ROUTES ====================
